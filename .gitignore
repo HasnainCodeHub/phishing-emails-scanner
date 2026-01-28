@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# Virtual environment
+.venv/
+venv/
+
+# Model artifacts
+data/model/*.joblib
+data/training/
+
+# Environment
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+nul
+
+# Credentials
+kaggle.json
+
+# Jupyter
+.ipynb_checkpoints/
+
+# UV
+uv.lock

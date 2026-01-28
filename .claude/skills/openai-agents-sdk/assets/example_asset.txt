@@ -1,0 +1,129 @@
+# OpenAI Agents SDK Configuration Template
+
+This template demonstrates how to configure the OpenAI Agents SDK to work with different LLM providers.
+
+## Environment Variables Setup
+
+Create a `.env` file with your API keys:
+
+```
+# OpenAI API key (for native OpenAI models)
+OPENAI_API_KEY=your_openai_api_key_here
+
+# Google Gemini API key (for Gemini models via OpenAI-compatible endpoint)
+GEMINI_API_KEY=your_gemini_api_key_here
+
+# Optional: Additional configuration
+MODEL_TEMPERATURE=0.7
+MAX_TOKENS=1000
+```
+
+## Basic Agent Configuration
+
+```python
+from openai import OpenAI
+import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
+
+def create_gemini_agent():
+    """
+    Create an agent configured to use Google Gemini
+    """
+    client = OpenAI(
+        api_key=os.getenv("GEMINI_API_KEY"),
+        base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
+    )
+
+    return client, "gemini-2.5-flash"
+
+def create_openai_agent():
+    """
+    Create an agent configured to use OpenAI models
+    """
+    client = OpenAI(
+        api_key=os.getenv("OPENAI_API_KEY"),
+    )
+
+    return client, "gpt-4-turbo"
+
+# Example usage
+if __name__ == "__main__":
+    # Create Gemini agent
+    gemini_client, gemini_model = create_gemini_agent()
+
+    # Make a request
+    response = gemini_client.chat.completions.create(
+        model=gemini_model,
+        messages=[
+            {"role": "user", "content": "Hello! What can you help me with?"}
+        ]
+    )
+
+    print(f"Gemini response: {response.choices[0].message.content}")
+```
+
+## Advanced Multi-Provider Agent
+
+```python
+from openai import OpenAI
+import os
+from typing import Dict, Tuple
+
+class MultiProviderAgent:
+    """
+    An agent that can work with multiple LLM providers
+    """
+
+    def __init__(self):
+        self.providers = {}
+
+        # Register OpenAI provider
+        if os.getenv("OPENAI_API_KEY"):
+            self.providers["openai"] = {
+                "client": OpenAI(api_key=os.getenv("OPENAI_API_KEY")),
+                "models": ["gpt-4-turbo", "gpt-3.5-turbo"]
+            }
+
+        # Register Gemini provider
+        if os.getenv("GEMINI_API_KEY"):
+            self.providers["gemini"] = {
+                "client": OpenAI(
+                    api_key=os.getenv("GEMINI_API_KEY"),
+                    base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
+                ),
+                "models": ["gemini-2.5-flash", "gemini-1.5-pro"]
+            }
+
+    def chat(self, provider: str, model: str, messages: list) -> str:
+        """
+        Send a chat request to the specified provider and model
+        """
+        if provider not in self.providers:
+            raise ValueError(f"Provider '{provider}' not configured or not available")
+
+        if model not in self.providers[provider]["models"]:
+            raise ValueError(f"Model '{model}' not available for provider '{provider}'")
+
+        client = self.providers[provider]["client"]
+
+        response = client.chat.completions.create(
+            model=model,
+            messages=messages
+        )
+
+        return response.choices[0].message.content
+
+    def list_providers(self) -> Dict[str, dict]:
+        """
+        List available providers and their models
+        """
+        return {
+            name: {"models": config["models"]}
+            for name, config in self.providers.items()
+        }
+```
+
+This template provides a starting point for implementing agents that can work with multiple LLM providers using the OpenAI Agents SDK.

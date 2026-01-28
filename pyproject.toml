@@ -1,0 +1,23 @@
+[project]
+name = "axioms-task"
+version = "0.1.0"
+description = "Explainable Phishing Email Scanner with ML classification and conditional LLM escalation"
+requires-python = ">=3.13"
+dependencies = [
+    "scikit-learn>=1.5",
+    "openai-agents>=0.0.3",
+    "python-dotenv>=1.0",
+    "joblib>=1.4",
+    "kaggle>=1.5",
+    "pandas>=2.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.24",
+    "jupyter>=1.0",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"

@@ -1,0 +1,23 @@
+[
+  {
+    "id": "safe-001",
+    "email_text": "Hi John,\n\nPlease find attached the quarterly report as discussed in our meeting yesterday.\nThe numbers look good and the team has been performing well.\n\nBest regards,\nSarah from Accounting\nsarah@company.com",
+    "sender": "sarah@company.com",
+    "label": "Safe",
+    "description": "Legitimate business email from known sender with standard content and no suspicious signals"
+  },
+  {
+    "id": "phishing-001",
+    "email_text": "URGENT: Your account has been suspended!\n\nDear Customer,\n\nWe have detected unauthorized access to your account. You must verify your\nidentity immediately or your account will be permanently closed within 24 hours.\n\nClick here to verify: http://192.168.1.100/verify-account?id=12345\nUpdate your payment: http://suspicious-domain.xyz/payment\n\nPlease provide your bank account details and password to restore access.\n\nRegards,\nSecurity Team\nsupport@bank-secure-verify.com",
+    "sender": "support@bank-secure-verify.com",
+    "label": "Phishing",
+    "description": "Classic phishing email with urgency language, suspicious URLs (IP-based), credential harvesting request, and spoofed sender"
+  },
+  {
+    "id": "borderline-001",
+    "email_text": "Dear Employee,\n\nThis is a reminder about the upcoming changes to your benefits enrollment.\nPlease review the attached document regarding your salary adjustment and\npayroll updates for the next quarter.\n\nYou may need to update your direct deposit information. Please visit\nour HR portal at https://hr-portal.company.com/benefits to review.\n\nThank you,\nHR Department\nhr@company.com",
+    "sender": "hr@company.com",
+    "label": "Suspicious",
+    "description": "Ambiguous email with HR/financial context that could be legitimate internal communication or a social engineering attempt"
+  }
+]

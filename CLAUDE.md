@@ -208,3 +208,10 @@ Wait for consent; never auto-create ADRs. Group related decisions (stacks, authe
 
 ## Code Standards
 See `.specify/memory/constitution.md` for code quality, testing, performance, security, and architecture principles.
+
+## Active Technologies
+- Python 3.13+ + scikit-learn (ML classifier + metrics), openai-agents (LLM escalation), regex (stdlib) (001-phishing-email-scanner)
+- File-based (model artifacts as joblib/pickle, example emails as JSON fixtures) (001-phishing-email-scanner)
+
+## Recent Changes
+- 001-phishing-email-scanner: Added Python 3.13+ + scikit-learn (ML classifier + metrics), openai-agents (LLM escalation), regex (stdlib)
